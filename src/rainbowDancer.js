@@ -27,13 +27,12 @@ RainbowDancer.prototype = Object.create(Dancer.prototype);
 RainbowDancer.prototype.constructor = Dancer;
 
 RainbowDancer.prototype.step = function(){
-  var colors = ['red','orange','green','blue','indigo','violet'];
   var rgbColors = [];
   for (var i = 0; i<3; i++){
     rgbColors.push(Math.floor(Math.random() * 255));
   }
   var newColor = 'rgb('+rgbColors[0]+','+rgbColors[1]+','+rgbColors[2]+')';
-  // this.$node.css('border-color',newColor);
-  this.$node.animate({borderColor: newColor}, 'fast');
+  this.$node.css('border-color',newColor);
+  this.$node.animate({borderColor: newColor}, this.timeBetweenSteps);
   this.oldStep();
 };

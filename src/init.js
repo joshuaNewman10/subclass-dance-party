@@ -25,7 +25,7 @@ $(document).ready(function(){
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
-      Math.random() * 10000
+      Math.random() * 1000
     );
     $('body').append(dancer.$node);
     window.dancers.push(dancer);
@@ -38,10 +38,25 @@ $(document).ready(function(){
   });
 
   $('.lineUpButton').on('click', function() {
-      window.dancers.forEach(function(dancer) {
-        dancer.lineUp();
+      window.dancers.forEach(function(dancer, i) {
+        // console.log('dancer foreach' + i);
+        dancer.lineUp()
       })
   });
+
+  $('.findPartnerButton').on('click', function(){
+      window.dancers.forEach(function(dancer){
+        dancer.moveClosest();
+      });
+  });
+
+  // $(document).on('click','.violet',function(event) {
+  //   console.log(event);
+  //   console.log($(this)[0].constructor);
+  //   console.log($(this)[0]);
+  //   this.pop();
+  // });
+
 });
 
 

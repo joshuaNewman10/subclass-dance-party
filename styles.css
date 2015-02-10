@@ -5,11 +5,14 @@ body{
   margin: 0px;
   background-color:#444;
   font-size: 18px;
+  background-image: url(src/lilypads.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 body, a:link, a:visited, a:active{
   color: lightblue;
 }
-.title, .addDancerButton, .makeDancerButton, .lineUpButton {
+.title, .addDancerButton, .makeDancerButton, .lineUpButton, .findPartnerButton {
   padding:5px 12px;
   float:right;
 }
@@ -26,8 +29,14 @@ body, a:link, a:visited, a:active{
   position:absolute;
 }
 
-.veruca {
-  border-radius: 50%;
+.violet {
+/*  border-radius: 50%;
   background-color:blue;
-  border-color:blue;
+  border-color:blue;*/
+/*  background-image: url(violet.png);
+  background-size: contain;*/
+  border: none;
+  width: 50px;
+  height: 50px;
+  position:absolute;
 }

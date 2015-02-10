@@ -4,6 +4,7 @@ var Dancer = function(top, left, timeBetweenSteps){
   this.$node = $('<span class="dancer"></span>');
   this.timeBetweenSteps = timeBetweenSteps;
   this.timerID;
+  this.paired = false;
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   // this.setPosition.call(this, top, left);
@@ -29,12 +30,13 @@ var Dancer = function(top, left, timeBetweenSteps){
     // var topPosition = parseInt(this.$node.css('top'),10);
     // var leftPosition = parseInt(this.$node.css('left'),10);
     // if(topPosition > topBound && topPosition < bottomBound){
-    //   this.$node.animate({top: (topPosition+moveSize)},1000);
+    //   this.$node.animate({top: (topPosition+moveSize)},this.timeBetweenSteps);
     // }
     // if(leftPosition > leftBound && leftPosition < rightBound){
-    //   this.$node.animate({left: (leftPosition+moveSize)},1000);
+    //   this.$node.animate({left: (leftPosition+moveSize)},this.timeBetweenSteps);
     // }
     //^^^^^^
+    // console.log("step");
     this.timerID = setTimeout(this.step.bind(this), this.timeBetweenSteps);
   };
 
@@ -50,13 +52,14 @@ var Dancer = function(top, left, timeBetweenSteps){
   };
 
   Dancer.prototype.lineUp = function() {
+    console.log("lineup");
     var height = $(window).height();
     var offset = ((height-32)/window.dancers.length)/2;
     var index = window.dancers.indexOf(this);
     var leftPosition;
     var topPosition;
     clearTimeout(this.timerID);
-    console.log(index);
+    console.log("cleartimer");
     if( index % 2 === 0) {
       leftPosition = 100;
       topPosition = (index+1)*offset;
@@ -68,4 +71,37 @@ var Dancer = function(top, left, timeBetweenSteps){
       top: topPosition,
       left: leftPosition
     },1000);
+  };
+
+  Dancer.prototype.findClosest = function(){
+    var currentClosest, currentClosestDistance = Infinity;
+    var thisDancer = this;
+    var x, y, x2, y2, xDist, yDist, distance;
+    x = parseInt(this.$node.css('left'),10);
+    y = parseInt(this.$node.css('top'),10);
+    window.dancers.forEach(function(dancer){
+      if (dancer !== thisDancer){
+        x2 = parseInt(dancer.$node.css('left'),10);
+        y2 = parseInt(dancer.$node.css('top'),10);
+        xDist = Math.abs(x-x2);
+        yDist = Math.abs(y-y2);
+        distance = Math.sqrt(Math.pow(xDist,2) + Math.pow(yDist,2));
+        if (distance < currentClosestDistance){
+          currentClosest = dancer;
+          currentClosestDistance = distance;
+        }
+      }
+    });
+    return currentClosest;
+  };
+
+  Dancer.prototype.moveClosest = function(){
+    if (!this.paired){
+      var partner = this.findClosest();
+      var partnerX = partner.$node.css('left') +5;
+      var partnerY = partner.$node.css('top');
+      this.$node.animate({left:partnerX,top:partnerY},2000);
+      this.paired = true;
+      partner.paired = true;
+    }
   };
