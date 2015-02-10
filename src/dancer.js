@@ -26,3 +26,23 @@ var Dancer = function(top, left, timeBetweenSteps){
     };
     this.$node.css(styleSettings);
   };
+
+  Dancer.prototype.lineUp = function() {
+    var height = $(window).height();
+    var offset = ((height-32)/window.dancers.length)/2;
+    var index = window.dancers.indexOf(this);
+    var leftPosition;
+    var topPosition;
+    console.log(index);
+    if( index % 2 === 0) {
+      leftPosition = 100;
+      topPosition = (index+1)*offset;
+    } else {
+      leftPosition = ($(window).width()) - 100;
+      topPosition = index*offset;
+    }
+    this.$node.animate({
+      top: topPosition,
+      left: leftPosition
+    },1000);
+  };

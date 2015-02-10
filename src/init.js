@@ -36,5 +36,12 @@ $(document).ready(function(){
         dancer.step();
      });
   });
+
+  $('.lineUpButton').on('click', function() {
+      window.dancers.forEach(function(dancer) {
+        dancer.lineUp();
+      })
+  });
 });
+
 
