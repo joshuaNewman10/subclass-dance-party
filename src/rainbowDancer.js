@@ -23,6 +23,9 @@ var RainbowDancer = function(top, left, timeBetweenSteps){
   this.oldStep = Dancer.prototype.step;
 };
 
+RainbowDancer.prototype = Object.create(Dancer.prototype);
+RainbowDancer.prototype.constructor = Dancer;
+
 RainbowDancer.prototype.step = function(){
   var colors = ['red','orange','green','blue','indigo','violet'];
   var rgbColors = [];
@@ -31,6 +34,6 @@ RainbowDancer.prototype.step = function(){
   }
   var newColor = 'rgb('+rgbColors[0]+','+rgbColors[1]+','+rgbColors[2]+')';
   // this.$node.css('border-color',newColor);
-  this.$node.animate({'border-color': newColor}, 'fast');
+  this.$node.animate({borderColor: newColor}, 'fast');
   this.oldStep();
 };

@@ -18,15 +18,25 @@
 //   return blinkyDancer;
 // };
 
-var BlinkyDancer = function(top, left, timeBetweenSteps){
+var Veruca = function(top, left, timeBetweenSteps){
   Dancer.call(this,top,left,timeBetweenSteps);
   this.oldStep = Dancer.prototype.step;
+  this.$node.addClass('veruca');
 };
 
-BlinkyDancer.prototype.step = function(){
+Veruca.prototype = Object.create(Dancer.prototype);
+Veruca.prototype.constructor = Dancer;
+
+Veruca.prototype.step = function(){
+  // var colors = ['red','orange','green','blue','indigo','violet'];
+  // var rgbColors = [];
+  // for (var i = 0; i<3; i++){
+  //   rgbColors.push(Math.floor(Math.random() * 255));
+  // }
+  // var newColor = 'rgb('+rgbColors[0]+','+rgbColors[1]+','+rgbColors[2]+')';
+  // this.$node.css('border-color',newColor);
+  // this.$node.css({width: '10px', height: '10px'});
+  this.$node.animate({width:'100px', height: '100px'}, 500);
+  this.$node.animate({width:'10px', height: '10px'}, 500);
   this.oldStep();
-  this.$node.toggle();
 };
-
-BlinkyDancer.prototype = Object.create(Dancer.prototype);
-BlinkyDancer.prototype.constructor = Dancer;

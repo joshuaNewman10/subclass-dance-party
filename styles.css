@@ -26,6 +26,8 @@ body, a:link, a:visited, a:active{
   position:absolute;
 }
 
-.rainbowDancer {
-
+.veruca {
+  border-radius: 50%;
+  background-color:blue;
+  border-color:blue;
 }
