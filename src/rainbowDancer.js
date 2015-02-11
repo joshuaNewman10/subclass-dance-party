@@ -20,11 +20,10 @@
 
 var RainbowDancer = function(top, left, timeBetweenSteps){
   Dancer.call(this,top,left,timeBetweenSteps);
-  // this.oldStep = Dancer.prototype.step;
 };
 
 RainbowDancer.prototype = Object.create(Dancer.prototype);
-RainbowDancer.prototype.constructor = Dancer;
+RainbowDancer.prototype.constructor = RainbowDancer;
 
 RainbowDancer.prototype.step = function(){
   var rgbColors = [];
@@ -34,7 +33,6 @@ RainbowDancer.prototype.step = function(){
   var newColor = 'rgb('+rgbColors[0]+','+rgbColors[1]+','+rgbColors[2]+')';
   this.$node.css('border-color',newColor);
   this.$node.animate({borderColor: newColor}, this.timeBetweenSteps);
-  // this.oldStep();
   Dancer.prototype.step.call(this); // refactor
 
 };

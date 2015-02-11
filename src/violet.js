@@ -22,22 +22,19 @@ var Violet = function(top, left, timeBetweenSteps){
   Dancer.call(this,top,left,timeBetweenSteps);
   this.$node = $('<img class="violet" src="violet.png"></img>')
   Violet.prototype.setPosition.call(this, top, left);
-  // this.oldStep = Dancer.prototype.step;
   var that = this;
   this.$node.on('click',function(){
     that.pop(that);
   });
-  // this.$node.addClass('violet');
 };
 
 Violet.prototype = Object.create(Dancer.prototype);
-Violet.prototype.constructor = Dancer;
+Violet.prototype.constructor = Violet;
 
 Violet.prototype.step = function(){
   this.$node.animate({width:'100px', height: '100px'}, 500);
   this.$node.animate({width:'50px', height: '50px'}, 500);
-  // this.oldStep();
-  Dancer.prototype.step.call(this); //refactor
+  Dancer.prototype.step.call(this);
 
 };
 

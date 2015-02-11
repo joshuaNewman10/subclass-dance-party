@@ -37,16 +37,9 @@ $(document).ready(function(){
   });
 
   $('.lineUpButton').on('click', function() {
-      // var lineHeight = $(window).height()/2;
-      // var windowWidth = $(window).width();
-      // var offset = windowWidth / (window.dancers.length+2);
-      // var leftPosition = offset;
+
       window.dancers.forEach(function(dancer) {
-        // console.log('dancer foreach' + i);
         dancer.lineUp();
-        // dancer.$node.clearQueue();
-        // dancer.$node.animate({top:lineHeight,left:leftPosition});
-        // leftPosition += offset;
       });
   });
 
@@ -55,6 +48,15 @@ $(document).ready(function(){
         dancer.moveClosest();
       });
   });
+
+  var backgrounds = ["lilypads.jpg","U-Hall-Stage.jpg","foto-sala-vella.jpg"];
+  var currentBackground = 1;
+  $('.backgroundButton').on('click', function(){
+    var newBG = 'url(src/' +backgrounds[currentBackground] + ')';
+    $('body').css({"background-image": newBG},500);
+    if (currentBackground === 2) currentBackground = 0;
+    else currentBackground++;
+  })
 
 
 });
