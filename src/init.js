@@ -49,12 +49,12 @@ $(document).ready(function(){
       });
   });
 
-  var backgrounds = ["lilypads.jpg","U-Hall-Stage.jpg","foto-sala-vella.jpg"];
+  var backgrounds = ["lilypads.jpg","U-Hall-Stage.jpg","foto-sala-vella.jpg","lights.jpg"];
   var currentBackground = 1;
   $('.backgroundButton').on('click', function(){
     var newBG = 'url(src/' +backgrounds[currentBackground] + ')';
     $('body').css({"background-image": newBG},500);
-    if (currentBackground === 2) currentBackground = 0;
+    if (currentBackground === backgrounds.length-1) currentBackground = 0;
     else currentBackground++;
   })
 
