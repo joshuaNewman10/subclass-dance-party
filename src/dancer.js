@@ -17,25 +17,26 @@ var Dancer = function(top, left, timeBetweenSteps){
     // it just schedules the next step
     // console.log(this);
     //the code to make them dance
-    // var width = $(window).width();
-    // var height = $(window).height();
-    // var moveSize = Math.floor(Math.random()*200);
-    // var negative = Math.round(Math.random()* 1) * -1;
+    this.paired = false;
+    var width = $(window).width();
+    var height = $(window).height();
+    var moveSize = Math.floor(Math.random()*200);
+    var negative = Math.round(Math.random()* 1) * -1;
 
-    // moveSize = negative < 0 ? moveSize * -1 : moveSize;
-    // var topBound,leftBound,bottomBound,rightBound;
-    // topBound = 132;
-    // leftBound = 100;
-    // bottomBound = height-132;
-    // rightBound = width-100;
-    // var topPosition = parseInt(this.$node.css('top'),10);
-    // var leftPosition = parseInt(this.$node.css('left'),10);
-    // if(topPosition > topBound && topPosition < bottomBound){
-    //   this.$node.animate({top: (topPosition+moveSize)},this.timeBetweenSteps);
-    // }
-    // if(leftPosition > leftBound && leftPosition < rightBound){
-    //   this.$node.animate({left: (leftPosition+moveSize)},this.timeBetweenSteps);
-    // }
+    moveSize = negative < 0 ? moveSize * -1 : moveSize;
+    var topBound,leftBound,bottomBound,rightBound;
+    topBound = 132;
+    leftBound = 100;
+    bottomBound = height-132;
+    rightBound = width-100;
+    var topPosition = parseInt(this.$node.css('top'),10);
+    var leftPosition = parseInt(this.$node.css('left'),10);
+    if(topPosition > topBound && topPosition < bottomBound){
+      this.$node.animate({top: (topPosition+moveSize)},this.timeBetweenSteps);
+    }
+    if(leftPosition > leftBound && leftPosition < rightBound){
+      this.$node.animate({left: (leftPosition+moveSize)},this.timeBetweenSteps);
+    }
     //^^^^^^
     // console.log("step");
     this.timerID = setTimeout(this.step.bind(this), this.timeBetweenSteps);
@@ -52,7 +53,7 @@ var Dancer = function(top, left, timeBetweenSteps){
     this.$node.css(styleSettings);
   };
 
-  Dancer.prototype.lineUp = function() {
+  Dancer.prototype.lineUpSides = function() {
     console.log("lineup");
     var height = $(window).height();
     var offset = ((height-32)/window.dancers.length)/2;
@@ -73,6 +74,18 @@ var Dancer = function(top, left, timeBetweenSteps){
       left: leftPosition
     },1000);
   };
+
+  Dancer.prototype.lineUp = function () {
+    var lineHeight = ($(window).height()/2)-50;
+    var windowWidth = $(window).width();
+    var offset = windowWidth / (window.dancers.length+2);
+    var index = window.dancers.indexOf(this);
+    var thisOffset = (index+1)*offset;
+    clearTimeout(this.timerID);
+    this.$node.clearQueue();
+    this.$node.animate({top: lineHeight, left: thisOffset});
+    // this.$node.effect('bounce');
+  }
 
   Dancer.prototype.findClosest = function(){
     var currentClosest, currentClosestDistance = Infinity;
@@ -101,7 +114,11 @@ var Dancer = function(top, left, timeBetweenSteps){
       var partner = this.findClosest();
       var partnerX = partner.$node.css('left') +5;
       var partnerY = partner.$node.css('top');
-      this.$node.animate({left:partnerX,top:partnerY},2000);
+      clearTimeout(this.timerID);
+      this.$node.clearQueue();
+      clearTimeout(partner.timerID);
+      partner.$node.clearQueue();
+      this.$node.animate({left:partnerX,top:partnerY},500);
       this.paired = true;
       partner.paired = true;
     }

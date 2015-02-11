@@ -24,7 +24,7 @@ $(document).ready(function(){
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
-      Math.random() * 1000
+      (Math.random() * 2000) +500
     );
     $('body').append(dancer.$node);
     window.dancers.push(dancer);
@@ -37,10 +37,17 @@ $(document).ready(function(){
   });
 
   $('.lineUpButton').on('click', function() {
-      window.dancers.forEach(function(dancer, i) {
+      // var lineHeight = $(window).height()/2;
+      // var windowWidth = $(window).width();
+      // var offset = windowWidth / (window.dancers.length+2);
+      // var leftPosition = offset;
+      window.dancers.forEach(function(dancer) {
         // console.log('dancer foreach' + i);
-        dancer.lineUp()
-      })
+        dancer.lineUp();
+        // dancer.$node.clearQueue();
+        // dancer.$node.animate({top:lineHeight,left:leftPosition});
+        // leftPosition += offset;
+      });
   });
 
   $('.findPartnerButton').on('click', function(){
