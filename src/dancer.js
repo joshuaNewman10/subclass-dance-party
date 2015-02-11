@@ -15,7 +15,6 @@ var Dancer = function(top, left, timeBetweenSteps){
   Dancer.prototype.step = function(){
     // the basic dancer doesn't do anything interesting at all on each step,
     // it just schedules the next step
-    // console.log(this);
     //the code to make them dance
     this.paired = false;
     var width = $(window).width();
@@ -37,8 +36,6 @@ var Dancer = function(top, left, timeBetweenSteps){
     if(leftPosition > leftBound && leftPosition < rightBound){
       this.$node.animate({left: (leftPosition+moveSize)},this.timeBetweenSteps);
     }
-    //^^^^^^
-    // console.log("step");
     this.timerID = setTimeout(this.step.bind(this), this.timeBetweenSteps);
   };
 
@@ -84,7 +81,7 @@ var Dancer = function(top, left, timeBetweenSteps){
     clearTimeout(this.timerID);
     this.$node.clearQueue();
     this.$node.animate({top: lineHeight, left: thisOffset});
-    // this.$node.effect('bounce');
+    // this.$node.effect('bounce', {times:30},1000);
   }
 
   Dancer.prototype.findClosest = function(){
@@ -110,16 +107,25 @@ var Dancer = function(top, left, timeBetweenSteps){
   };
 
   Dancer.prototype.moveClosest = function(){
+    //debugger;
+    clearTimeout(this.timerID);
+    this.$node.clearQueue();
     if (!this.paired){
       var partner = this.findClosest();
-      var partnerX = partner.$node.css('left') +5;
-      var partnerY = partner.$node.css('top');
-      clearTimeout(this.timerID);
-      this.$node.clearQueue();
-      clearTimeout(partner.timerID);
-      partner.$node.clearQueue();
-      this.$node.animate({left:partnerX,top:partnerY},500);
-      this.paired = true;
-      partner.paired = true;
+      if (partner.paired !== true){
+        clearTimeout(partner.timerID);
+        partner.$node.clearQueue();
+        var partnerX = parseInt(partner.$node.css('left'),10) +20;
+        var partnerY = parseInt(partner.$node.css('top'),10);
+        this.$node.animate({left:partnerX,top:partnerY},500);
+        this.paired = true;
+        partner.paired = true;
+      }
     }
   };
+
+  // Dancer.prototype.doSiDo = function(){
+  //   clearTimeout(this.timerID);
+  //   this.$node.clearQueue();
+  //   this.$node.curve.circle(50);
+  // };

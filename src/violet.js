@@ -38,9 +38,10 @@ Violet.prototype.step = function(){
 
 };
 
-Violet.prototype.pop = function(cx){  console.log(cx);
+Violet.prototype.pop = function(cx){
   clearTimeout(cx.timerID);
   this.$node.clearQueue();
   cx.$node.animate({width:'1000px',height:'1000px'},500);
   setTimeout(function(){cx.$node.remove()},499);
+  delete window.dancers[window.dancers.indexOf(this)];
 }

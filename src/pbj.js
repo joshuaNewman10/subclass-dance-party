@@ -22,7 +22,7 @@ var PBJ = function(top, left, timeBetweenSteps){
   Dancer.call(this,top,left,timeBetweenSteps);
   this.$node = $('<img class="PBJ" src="src/pbjtime.gif"></img>')
   PBJ.prototype.setPosition.call(this, top, left);
-  this.$node.css({width:"170px",height:"160px",position:"absolute"});
+  this.$node.css({width:"85px",height:"80px",position:"absolute"});
 };
 
 PBJ.prototype = Object.create(Dancer.prototype);

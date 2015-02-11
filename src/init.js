@@ -56,8 +56,7 @@ $(document).ready(function(){
     $('body').css({"background-image": newBG},500);
     if (currentBackground === backgrounds.length-1) currentBackground = 0;
     else currentBackground++;
-  })
-
+  });
 
 });
 
