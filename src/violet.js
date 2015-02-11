@@ -22,7 +22,7 @@ var Violet = function(top, left, timeBetweenSteps){
   Dancer.call(this,top,left,timeBetweenSteps);
   this.$node = $('<img class="violet" src="violet.png"></img>')
   Violet.prototype.setPosition.call(this, top, left);
-  this.oldStep = Dancer.prototype.step;
+  // this.oldStep = Dancer.prototype.step;
   var that = this;
   this.$node.on('click',function(){
     that.pop(that);
@@ -34,17 +34,11 @@ Violet.prototype = Object.create(Dancer.prototype);
 Violet.prototype.constructor = Dancer;
 
 Violet.prototype.step = function(){
-  // var colors = ['red','orange','green','blue','indigo','violet'];
-  // var rgbColors = [];
-  // for (var i = 0; i<3; i++){
-  //   rgbColors.push(Math.floor(Math.random() * 255));
-  // }
-  // var newColor = 'rgb('+rgbColors[0]+','+rgbColors[1]+','+rgbColors[2]+')';
-  // this.$node.css('border-color',newColor);
-  // this.$node.css({width: '10px', height: '10px'});
   this.$node.animate({width:'100px', height: '100px'}, 500);
   this.$node.animate({width:'50px', height: '50px'}, 500);
-  this.oldStep();
+  // this.oldStep();
+  Dancer.prototype.step.call(this); //refactor
+
 };
 
 Violet.prototype.pop = function(cx){  console.log(cx);

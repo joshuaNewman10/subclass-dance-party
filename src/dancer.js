@@ -9,6 +9,7 @@ var Dancer = function(top, left, timeBetweenSteps){
   // this one sets the position to some random default point within the body
   // this.setPosition.call(this, top, left);
   Dancer.prototype.setPosition.call(this, top, left); // come back to this later********************
+  this.step();//refactor(addition)
 };
 
   Dancer.prototype.step = function(){

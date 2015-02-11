@@ -21,7 +21,6 @@ $(document).ready(function(){
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
     // make a dancer with a random position
-
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
@@ -50,12 +49,6 @@ $(document).ready(function(){
       });
   });
 
-  // $(document).on('click','.violet',function(event) {
-  //   console.log(event);
-  //   console.log($(this)[0].constructor);
-  //   console.log($(this)[0]);
-  //   this.pop();
-  // });
 
 });
 
